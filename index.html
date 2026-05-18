@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A fast Hong Kong focused Pikmin Bloom decor map using cached OpenStreetMap data."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://overpass-api.de https://overpass.kumi.systems;"
+    />
+    <title>Hong Kong Pikmin Decor Map</title>
+    <link rel="preconnect" href="https://tile.openstreetmap.org" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="control-panel" aria-label="Map controls">
+        <header class="panel-header">
+          <div>
+            <p class="eyebrow">Hong Kong</p>
+            <h1>Pikmin Decor Map</h1>
+          </div>
+          <button class="icon-button" id="fit-map" type="button" title="Fit map to results">
+            Fit
+          </button>
+        </header>
+
+        <section class="status-block" aria-live="polite">
+          <div class="status-line">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-text">Loading local data...</span>
+          </div>
+          <p class="meta-line" id="data-meta">Preparing map</p>
+        </section>
+
+        <div class="toolbar">
+          <button class="primary-button" id="refresh-data" type="button">
+            Refresh data
+          </button>
+          <button class="ghost-button" id="clear-cache" type="button">
+            Clear cache
+          </button>
+        </div>
+
+        <label class="select-box">
+          <span>Area</span>
+          <select id="area-select"></select>
+        </label>
+
+        <fieldset class="mode-switch" aria-label="Pin display">
+          <legend>Pin display</legend>
+          <div class="segmented-control">
+            <button
+              class="segment-button is-active"
+              id="pin-mode-dot"
+              type="button"
+              data-pin-mode="dot"
+              aria-pressed="true"
+            >
+              Dots
+            </button>
+            <button
+              class="segment-button"
+              id="pin-mode-emoji"
+              type="button"
+              data-pin-mode="emoji"
+              aria-pressed="false"
+            >
+              Emoji
+            </button>
+          </div>
+        </fieldset>
+
+        <label class="search-box">
+          <span>Search</span>
+          <input
+            id="search-input"
+            type="search"
+            autocomplete="off"
+            placeholder="Name, decor, tag"
+          />
+        </label>
+
+        <section class="summary-grid" aria-label="Current result counts">
+          <div>
+            <strong id="visible-count">0</strong>
+            <span>shown</span>
+          </div>
+          <div>
+            <strong id="total-count">0</strong>
+            <span>cached</span>
+          </div>
+        </section>
+
+        <section class="filter-section">
+          <div class="section-title">
+            <h2>Decor filters</h2>
+            <button class="text-button" id="select-all" type="button">All</button>
+          </div>
+          <div class="decor-list" id="decor-list"></div>
+        </section>
+
+        <footer class="attribution">
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
+            OpenStreetMap
+          </a>
+          data via Overpass. Decor tags adapted from
+          <a href="https://github.com/pixlpirate/pikmin-map" target="_blank" rel="noreferrer">
+            PixelPirate
+          </a>.
+        </footer>
+      </aside>
+
+      <section class="map-wrap" aria-label="Hong Kong decor map">
+        <div id="map"></div>
+        <div class="mobile-actions">
+          <button class="primary-button" id="refresh-data-mobile" type="button">
+            Refresh
+          </button>
+          <button class="ghost-button" id="panel-toggle" type="button">
+            Filters
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
